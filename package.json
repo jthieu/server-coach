@@ -5,10 +5,21 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "npm start"
   },
   "author": "Jordy Martinez",
   "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "del": "^3.0.0",
+    "express": "^4.15.3",
+    "http": "0.0.0",
+    "method-override": "^2.3.9",
+    "mongoose": "^4.11.4",
+    "morgan": "^1.8.2",
+    "superlogin": "^0.6.1"
+  },
   "devDependencies": {
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
