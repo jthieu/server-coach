@@ -47,46 +47,46 @@ app.use(function(req, res, next) {
 //	age: Number
 //});
 
-app.get('/api/mentors', function(req,res){
-	console.log("fetching mentors");
-	Mentor.find(function(err, mentors){
-		if (err)
-			res.send(err);
-		res.json(mentors);
-	});
-});
+//app.get('/api/mentors', function(req,res){
+//	console.log("fetching mentors");
+//	Mentor.find(function(err, mentors){
+//		if (err)
+//			res.send(err);
+//		res.json(mentors);
+//	});
+//});
 
 //app.get('/', function(req,res) {
 //    console.log("We're in.");
 //});
 
-app.post('/api/mentors', function(req, res){
-	console.log("fetching mentors");
-	Mentor.create({
-		first_name: req.body.first_name,
-		last_name: req.body.last_name,
-		phone_number: req.body.phone_number,
-		username: req.body.username,
-		password: req.body.password,
-		major: req.body.major,
-		job_position: req.body.job_position,
-		education: req.body.education,
-		dream_career: req.body.dream_career,
-		bio: req.body.bio,
-		age: req.body.age,
-		done: false
-	
-	}, function(err, mentor){
-		if (err)
-			res.send(err);
-		Mentor.find(function(err, mentors){
-		if (err)
-			res.send(err);
-		res.json(mentors);
-	});
-
-	});
-});
+//app.post('/api/mentors', function(req, res){
+//	console.log("fetching mentors");
+//	Mentor.create({
+//		first_name: req.body.first_name,
+//		last_name: req.body.last_name,
+//		phone_number: req.body.phone_number,
+//		username: req.body.username,
+//		password: req.body.password,
+//		major: req.body.major,
+//		job_position: req.body.job_position,
+//		education: req.body.education,
+//		dream_career: req.body.dream_career,
+//		bio: req.body.bio,
+//		age: req.body.age,
+//		done: false
+//	
+//	}, function(err, mentor){
+//		if (err)
+//			res.send(err);
+//		Mentor.find(function(err, mentors){
+//		if (err)
+//			res.send(err);
+//		res.json(mentors);
+//	});
+//
+//	});
+//});
 
 app.get('/', function (req, res) {
     console.log("We're in.");
