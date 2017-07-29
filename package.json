@@ -1,5 +1,5 @@
 {
-  "name": "exampleappserver",
+  "name": "exampleappservercoach",
   "version": "1.0.0",
   "description": "Server for exampleApp running mentors",
   "main": "index.js",
