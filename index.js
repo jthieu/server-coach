@@ -28,6 +28,7 @@ app.use(cors());
 app.use(bodyparser.urlencoded({
     extended: true
 }));
+app.use(bodyparser.json());
 app.use(function (req, res, next) {
    res.header("Access-Control-Allow-Origin", "*");
    res.header('Access-Control-Allow-Methods', 'DELETE, PUT');
@@ -140,8 +141,4 @@ app.post('/api/mentors', function(req, res){
 var port = process.env.PORT || 8080;
 app.listen(port, function () {
     console.log('Listening on port ' + port);
-//    console.log({
-//        "name": "art exhbit A",
-//        "date": "tommorow"
-//    })
 });
