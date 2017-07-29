@@ -1,16 +1,30 @@
 var express = require('express');
 var app = express();
 var mongoose =  require('mongoose');
+var mongodb = require('mongodb');
 var morgan = require('morgan');
 var del = require('del');
 var methodOverride = require('method-override');
 var cors = require ('cors');
 var bodyParser = require('body-parser');
 
-mongoose.connect(process.env.MONGODB_URI);
+var client = mongodb.MongoClient;
+var url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+client.connect(url, function (err, db) {
+    if (err) {
+        console.log("error connecting");
+        process.exit(1);
+        throw err;
+    } else {
+        console.log("connected to our database")
+//        events = db.collection("exevents");
+//        orders = db.collection("orders");
+    }
+});
+//mongoose.connect(process.env.MONGODB_URI);
 
 app.use(morgan('dev'));
-// app.use(body-parser.urlencoded);
+//app.use(body-parser.urlencoded);
 app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(cors());
@@ -70,7 +84,9 @@ app.post('/api/mentors', function(req, res){
 	});
 });
 
-app.listen(8080);
-console.log("app listening on 8080");
+var port = process.env.PORT || 8080;
+app.listen(port, function () {
+    console.log('Listening on port ' + port);
+}
 
 
