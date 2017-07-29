@@ -17,8 +17,8 @@ client.connect(url, function (err, db) {
         throw err;
     } else {
         console.log("connected to our database")
-        events = db.collection("exevents");
-        orders = db.collection("orders");
+//        events = db.collection("exevents");
+//        orders = db.collection("orders");
     }
 })
 app.use(cors());
@@ -33,17 +33,71 @@ app.use(function(req, res, next) {
    next();
 });
 
+var Mentor = mongoose.model('Mentor',{
+	first_name: String,
+	last_name: String,
+	username: String,
+	password: String,
+	phone_number: String,
+	major: String,
+	job_position: String,
+	education: String,
+	dream_career: String,
+	bio: String,
+	age: Number
+});
 
-app.get("/", function (req, res) {
-    console.log("inserting a new event");
-    events.insert({
-        "name": "art exhbit A",
-        "date": "tommorow"
-    }, function (err, doc) {
+app.get('/api/mentors', function(req,res){
+	console.log("fetching mentors");
+	Mentor.find(function(err, mentors){
+		if (err)
+			res.send(err);
+		res.json(mentors);
+	});
+});
 
-    });
+app.get('/', function(req,res) {
+    console.log("We're in.");
+});
 
-})
+app.post('/api/mentors', function(req, res){
+	console.log("fetching mentors");
+	Mentor.create({
+		first_name: req.body.first_name,
+		last_name: req.body.last_name,
+		phone_number: req.body.phone_number,
+		username: req.body.username,
+		password: req.body.password,
+		major: req.body.major,
+		job_position: req.body.job_position,
+		education: req.body.education,
+		dream_career: req.body.dream_career,
+		bio: req.body.bio,
+		age: req.body.age,
+		done: false
+	
+	}, function(err, mentor){
+		if (err)
+			res.send(err);
+		Mentor.find(function(err, mentors){
+		if (err)
+			res.send(err);
+		res.json(mentors);
+	});
+
+	});
+});
+
+//app.get("/", function (req, res) {
+//    console.log("inserting a new event");
+//    events.insert({
+//        "name": "art exhbit A",
+//        "date": "tommorow"
+//    }, function (err, doc) {
+//
+//    });
+//
+//})
 
 app.get("/pullEvents", function (req, res) {
     events.find().toArray(function (err, docs) {
