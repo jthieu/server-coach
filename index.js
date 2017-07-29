@@ -33,19 +33,19 @@ app.use(function(req, res, next) {
    next();
 });
 
-var Mentor = mongoose.model('Mentor',{
-	first_name: String,
-	last_name: String,
-	username: String,
-	password: String,
-	phone_number: String,
-	major: String,
-	job_position: String,
-	education: String,
-	dream_career: String,
-	bio: String,
-	age: Number
-});
+//var Mentor = mongoose.model('Mentor',{
+//	first_name: String,
+//	last_name: String,
+//	username: String,
+//	password: String,
+//	phone_number: String,
+//	major: String,
+//	job_position: String,
+//	education: String,
+//	dream_career: String,
+//	bio: String,
+//	age: Number
+//});
 
 app.get('/api/mentors', function(req,res){
 	console.log("fetching mentors");
