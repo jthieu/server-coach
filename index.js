@@ -1,5 +1,6 @@
 var express = require("express");
 var mongodb = require("mongodb");
+var mongoose = require('mongoose');
 var bodyparser = require("body-parser");
 var cors = require("cors");
 var jsonparser = bodyparser.json({
@@ -7,26 +8,27 @@ var jsonparser = bodyparser.json({
 });
 var app = express();
 
-var client = mongodb.MongoClient;
-var events, orders;
-var url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
-client.connect(url, function (err, db) {
-    if (err) {
-        console.log("error connecting");
-        process.exit(1);
-        throw err;
-    } else {
-        console.log("connected to our database");
-//        events = db.collection("exevents");
-//        orders = db.collection("orders");
-    }
-})
+//var client = mongodb.MongoClient;
+//var events, orders;
+//var url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+//client.connect(url, function (err, db) {
+//    if (err) {
+//        console.log("error connecting");
+//        process.exit(1);
+//        throw err;
+//    } else {
+//        console.log("connected to our database");
+////        events = db.collection("exevents");
+////        orders = db.collection("orders");
+//    }
+//});
+mongoose.connect(process.env.MONGODB_URI);
 app.use(cors());
 
 app.use(bodyparser.urlencoded({
     extended: true
 }));
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
    res.header("Access-Control-Allow-Origin", "*");
    res.header('Access-Control-Allow-Methods', 'DELETE, PUT');
    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
