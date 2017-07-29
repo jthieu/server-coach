@@ -7,7 +7,7 @@ var methodOverride = require('method-override');
 var cors = require ('cors');
 var bodyParser = require('body-parser');
 
-mongoose.connect('mongodb://JordyMartinez:martinezjordy2014@ds059634.mlab.com:59634/corvids');
+mongoose.connect(process.env.MONGODB_URI);
 
 app.use(morgan('dev'));
 // app.use(body-parser.urlencoded);
@@ -36,6 +36,10 @@ app.get('/api/mentors', function(req,res){
 			res.send(err);
 		res.json(mentors);
 	});
+});
+
+app.get('/', function(req,res) {
+    console.log("We're in.");
 });
 
 app.post('/api/mentors', function(req, res){
