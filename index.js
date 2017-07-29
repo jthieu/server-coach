@@ -16,7 +16,7 @@ client.connect(url, function (err, db) {
         process.exit(1);
         throw err;
     } else {
-        console.log("connected to our database")
+        console.log("connected to our database");
 //        events = db.collection("exevents");
 //        orders = db.collection("orders");
     }
@@ -141,8 +141,8 @@ app.post("/pushOrder", (req, res) => {
 var port = process.env.PORT || 8080;
 app.listen(port, function () {
     console.log('Listening on port ' + port);
-    console.log({
-        "name": "art exhbit A",
-        "date": "tommorow"
-    })
+//    console.log({
+//        "name": "art exhbit A",
+//        "date": "tommorow"
+//    })
 });
