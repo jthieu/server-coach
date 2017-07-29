@@ -56,9 +56,9 @@ app.get('/api/mentors', function(req,res){
 	});
 });
 
-app.get('/', function(req,res) {
-    console.log("We're in.");
-});
+//app.get('/', function(req,res) {
+//    console.log("We're in.");
+//});
 
 app.post('/api/mentors', function(req, res){
 	console.log("fetching mentors");
@@ -88,16 +88,13 @@ app.post('/api/mentors', function(req, res){
 	});
 });
 
-//app.get("/", function (req, res) {
-//    console.log("inserting a new event");
-//    events.insert({
-//        "name": "art exhbit A",
-//        "date": "tommorow"
-//    }, function (err, doc) {
-//
-//    });
-//
-//})
+app.get('/', function (req, res) {
+    console.log("We're in.");
+    }, function (err, doc) {
+
+    });
+
+})
 
 app.get("/pullEvents", function (req, res) {
     events.find().toArray(function (err, docs) {
