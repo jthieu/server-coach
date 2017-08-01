@@ -107,6 +107,8 @@ app.post('/api/mentors', function (req, res) {
 		education: req.body.education,
 		dream_career: req.body.dream_career,
 		bio: req.body.bio,
+		pendingMentees: req.body.pendingMentees,
+		acceptedMentees: req.body.acceptedMentees,
 		age: req.body.age,
 		done: false
 
@@ -172,6 +174,8 @@ app.post('/api/mentees', function (req, res) {
 		education: req.body.education,
 		dream_career: req.body.dream_career,
 		bio: req.body.bio,
+		pendingMentors: req.body.pendingMentors,
+		acceptedMentors: req.body.acceptedMentors,
 		age: req.body.age,
 		done: false
 
