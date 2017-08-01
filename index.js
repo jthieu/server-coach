@@ -122,7 +122,7 @@ app.post('/api/mentors', function (req, res) {
 	};
 });
 
-app.post('/api/mentor/:mentorID', function (req, res) {
+app.post('/api/mentors/:mentorID', function (req, res) {
 	console.log("Updating mentor");
 	//req.body.[mentorname].update
 	Mentor.findOneAndUpdate(
