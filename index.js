@@ -122,22 +122,29 @@ app.post('/api/mentors', function (req, res) {
 	};
 });
 
-app.post('/api/mentors/:mentorID', function (req, res) {
+app.post('/api/mentorsUpdate', function (req, res) {
 	console.log("Updating mentor");
 	//req.body.[mentorname].update
 	Mentor.findOneAndUpdate(
-		{ _id: req.params.mentorID },
+		{ _id: req.body.mentorID },
 		{ $push: { acceptedMentees: req.body.menteeID } },
 		done
 	);
 
 	Mentor.findOneAndUpdate(
-		{ _id: req.params.mentorID },
+		{ _id: req.body.mentorID },
 		//{ $pull: { pendingMentees: { $elemMatch: { id: req.body.mentee._id } } } }
 		{ $pull: { pendingMentees: req.body.menteeID } }
 	);
+});
 
-
+app.post('/api/addPendingMentor', function (req, res) {
+	console.log("Updating mentee");
+	Mentor.findOneAndUpdate(
+		{ _id: req.body.menteeID },
+		{ $push: { acceptedMentors: req.body.mentorID } },
+		done
+	);
 });
 
 
@@ -180,16 +187,16 @@ app.post('/api/mentees', function (req, res) {
 	};
 });
 
-app.post('/api/mentees/:menteeID', function (req, res) {
+app.post('/api/menteesUpdate', function (req, res) {
 	console.log("Updating mentee");
 	Mentor.findOneAndUpdate(
-		{ _id: req.params.menteeID },
+		{ _id: req.body.menteeID },
 		{ $push: { acceptedMentors: req.body.mentorID } },
 		done
 	);
 
 	Mentor.findOneAndUpdate(
-		{ _id: req.params.menteeID },
+		{ _id: req.body.menteeID },
 		{ $pull: { pendingMentors: req.body.mentorID } }
 	);
 });
