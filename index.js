@@ -129,8 +129,7 @@ app.post('/api/mentorsUpdate', function (req, res) {
 	//req.body.[mentorname].update
 	Mentor.findOneAndUpdate(
 		{ _id: req.body.mentorID },
-		{ $push: { acceptedMentees: req.body.menteeID } },
-		done
+		{ $push: { acceptedMentees: req.body.menteeID } }
 	);
 
 	Mentor.findOneAndUpdate(
@@ -144,8 +143,7 @@ app.post('/api/addPendingMentor', function (req, res) {
 	console.log("Updating mentee");
 	Mentor.findOneAndUpdate(
 		{ _id: req.body.menteeID },
-		{ $push: { acceptedMentors: req.body.mentorID } },
-		done
+		{ $push: { acceptedMentors: req.body.mentorID } }
 	);
 });
 
@@ -195,8 +193,7 @@ app.post('/api/menteesUpdate', function (req, res) {
 	console.log("Updating mentee");
 	Mentor.findOneAndUpdate(
 		{ _id: req.body.menteeID },
-		{ $push: { acceptedMentors: req.body.mentorID } },
-		done
+		{ $push: { acceptedMentors: req.body.mentorID } }
 	);
 
 	Mentor.findOneAndUpdate(
