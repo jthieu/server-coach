@@ -131,8 +131,8 @@ app.post('/api/mentorsUpdate', function (req, res) {
 app.post('/api/addPendingMentor', function (req, res) {
 	console.log("Updating mentee");
 	Mentee.findOneAndUpdate(
-		{ id: req.body.menteeID },
-		{ $push: { pendingMentors: req.body.mentorID } }
+		{ username: /*req.body.mentee_username*/"iamkostakis" },
+		{ $push: { pendingMentors: /*req.body.mentor_username*/"flex" } }
 	);
 });
 
