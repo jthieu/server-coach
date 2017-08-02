@@ -143,7 +143,7 @@ app.post('/api/addPendingMentor', function (req, res) {
 	console.log("Updating mentee");
 	Mentor.findOneAndUpdate(
 		{ _id: req.body.menteeID },
-		{ $push: { acceptedMentors: req.body.mentorID } }
+		{ $push: { pendingMentors: req.body.mentorID } }
 	);
 });
 
