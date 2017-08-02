@@ -86,8 +86,9 @@ app.get('/api/mentors', function (req, res) {
 	});
 });
 
+//Create a new mentor and send back list of mentors
 app.post('/api/mentors', function (req, res) {
-	console.log("Add mentors");
+	console.log("Adding a mentor");
 	Mentor.create({
 		first_name: req.body.first_name,
 		last_name: req.body.last_name,
@@ -105,44 +106,15 @@ app.post('/api/mentors', function (req, res) {
 		age: req.body.age,
 		done: false
 
-	}), function (err, mentee) {
+	}), function (err, mentor) {
 		if (err)
 			res.send(err);
-		Mentee.find(function (err, mentees) {
+		Mentor.find(function (err, mentors) {
 			if (err)
 				res.send(err);
-			res.json(mentees);
+			res.json(mentors);
 		});
 	};
-});
-
-app.post('/api/mentorsUpdate', function (req, res) {
-	console.log("Updating mentor");
-	//req.body.[mentorname].update
-	Mentor.findOneAndUpdate(
-		{ _id: req.body.mentorID },
-		{ $push: { acceptedMentees: req.body.menteeID } }
-	);
-
-	Mentor.findOneAndUpdate(
-		{ _id: req.body.mentorID },
-		//{ $pull: { pendingMentees: { $elemMatch: { id: req.body.mentee._id } } } }
-		{ $pull: { pendingMentees: req.body.menteeID } }
-	);
-});
-
-app.post('/api/addPendingMentor', function (req, res) {
-	console.log("Updating mentee");
-	Mentee.findOneAndUpdate(
-		{ "_id": req.body.menteeID },
-		{ $push: { "pendingMentors": req.body.mentorID } },
-		options, 
-		function (err, mentee) {
-			if (err)
-				throw err;
-			console.log(mentee);
-		}
-	);
 });
 
 
@@ -156,8 +128,9 @@ app.get('/api/mentees', function (req, res) {
 	});
 });
 
+// Create a new mentee and send back list of mentees
 app.post('/api/mentees', function (req, res) {
-	console.log("Fetching mentees");
+	console.log("Adding a mentee");
 	Mentee.create({
 		first_name: req.body.first_name,
 		last_name: req.body.last_name,
@@ -187,16 +160,78 @@ app.post('/api/mentees', function (req, res) {
 	};
 });
 
-app.post('/api/menteesUpdate', function (req, res) {
-	console.log("Updating mentee");
-	Mentor.findOneAndUpdate(
-		{ _id: req.body.menteeID },
-		{ $push: { acceptedMentors: req.body.mentorID } }
+// Adds an accepted mentee to the mentee's
+app.post('/api/acceptMentee', function (req, res) {
+	console.log("Updating mentee and mentors' relation status!");
+	// Adds the mentor's id to the acceptedMentors list
+	Mentee.findOneAndUpdate(
+		{ "_id": req.body.menteeID },
+		{ $addToSet: { "acceptedMentors": req.body.mentorID } },
+		options,
+		function(err, mentee) {
+			if (err)
+				throw err
+			//console.log(mentee.acceptedMentors);
+		}
 	);
-
+	// Removes the mentor's id from the pendingMentors list
+	Mentee.findOneAndUpdate(
+		{ "_id": req.body.menteeID },
+		{ $pull: { "pendingMentors": req.body.mentorID } },
+		options,
+		function(err, mentee) {
+			if (err)
+				throw err
+			//console.log(mentee.pendingMentors);
+		}
+	);
+	// Adds the mentee's id to the acceptedMentees list
 	Mentor.findOneAndUpdate(
-		{ _id: req.body.menteeID },
-		{ $pull: { pendingMentors: req.body.mentorID } }
+		{ "_id": req.body.mentorID },
+		{ $addToSet: { "acceptedMentees": req.body.menteeID } },
+		options,
+		function(err, mentor) {
+			if (err)
+				throw err
+			//console.log(mentor);
+		}
+	);
+	// Removes the mentee's id from the pendingMentees list
+	Mentor.findOneAndUpdate(
+		{ "_id": req.body.mentorID },
+		//{ $pull: { pendingMentees: { $elemMatch: { id: req.body.mentee._id } } } }
+		{ $pull: { "pendingMentees": req.body.menteeID } },
+		options,
+		function(err, mentor) {
+			if (err)
+				throw err
+			//console.log(mentor);
+		}
+	);
+});
+
+// Adds a pending mentor to the mentee's list and a pending mentee to the mentor's list
+app.post('/api/addPendingMentor', function (req, res) {
+	console.log("Updating mentee");
+	Mentee.findOneAndUpdate(
+		{ "_id": req.body.menteeID },
+		{ $addToSet: { "pendingMentors": req.body.mentorID } },
+		options, 
+		function (err, mentee) {
+			if (err)
+				throw err;
+			//console.log(mentee);
+		}
+	);
+	Mentor.findOneAndUpdate(
+		{ "_id": req.body.mentorID },
+		{ $addToSet: { "pendingMentees": req.body.menteeID } },
+		options, 
+		function (err, mentor) {
+			if (err)
+				throw err;
+			//console.log(mentor);
+		}
 	);
 });
 
