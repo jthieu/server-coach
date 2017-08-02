@@ -56,8 +56,8 @@ var MenteeSchema = new Schema({
 	education: String,
 	dream_career: String,
 	bio: String,
-	pendingMentors: [String],
-	acceptedMentors: [String],
+	pendingMentors: [{type: String}],
+	acceptedMentors: [{type: String}],
 	hobbies: String,
 	age: Number
 });
