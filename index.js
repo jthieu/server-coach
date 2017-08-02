@@ -9,20 +9,6 @@ var jsonparser = bodyparser.json({
 });
 var app = express();
 
-//var client = mongodb.MongoClient;
-//var events, orders;
-//var url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
-//client.connect(url, function (err, db) {
-//    if (err) {
-//        console.log("error connecting");
-//        process.exit(1);
-//        throw err;
-//    } else {
-//        console.log("connected to our database");
-////        events = db.collection("exevents");
-////        orders = db.collection("orders");
-//    }
-//});
 mongoose.connect(process.env.MONGODB_URI);
 app.use(cors());
 
@@ -115,6 +101,8 @@ app.post('/api/mentors', function (req, res) {
 	}), function (err, mentor) {
 		if (err)
 			res.send(err);
+		console.log(typeof req.body.pendingMentees);
+		console.log(typeof req.body.acceptedMentees);
 		Mentor.find(function (err, mentors) {
 			if (err)
 				res.send(err);
