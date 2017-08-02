@@ -210,6 +210,31 @@ app.post('/api/acceptMentee', function (req, res) {
 	);
 });
 
+// Deletes a pending mentee from the mentor's list and vice versa
+app.post('/api/deletePendingMentee', function (req, res) {
+	console.log("Updating mentee");
+	Mentor.findOneAndUpdate(
+		{ "_id": req.body.mentorID },
+		{ $pull: { "pendingMentees": req.body.menteeID } },
+		options, 
+		function (err, mentor) {
+			if (err)
+				throw err;
+			//console.log(mentee);
+		}
+	);
+	Mentee.findOneAndUpdate(
+		{ "_id": req.body.menteeID },
+		{ $pull: { "pendingMentees": req.body.mentorID } },
+		options, 
+		function (err, mentee) {
+			if (err)
+				throw err;
+			//console.log(mentor);
+		}
+	);
+});
+
 // Adds a pending mentor to the mentee's list and a pending mentee to the mentor's list
 app.post('/api/addPendingMentor', function (req, res) {
 	console.log("Updating mentee");
