@@ -37,8 +37,8 @@ var MentorSchema = new Schema({
 	education: String,
 	dream_career: String,
 	bio: String,
-	pendingMentees: [{type: String}],
-	acceptedMentees: [{type: String}],
+	// pendingMentees: [{type: String}],
+	// acceptedMentees: [{type: String}],
 	age: Number
 });
 
@@ -93,8 +93,8 @@ app.post('/api/mentors', function (req, res) {
 		education: req.body.education,
 		dream_career: req.body.dream_career,
 		bio: req.body.bio,
-		pendingMentees: req.body.pendingMentees,
-		acceptedMentees: req.body.acceptedMentees,
+		// pendingMentees: req.body.pendingMentees,
+		// acceptedMentees: req.body.acceptedMentees,
 		age: req.body.age,
 		done: false
 
