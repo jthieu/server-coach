@@ -99,8 +99,8 @@ app.post('/api/mentors', function (req, res) {
 		done: false
 
 	});
-	console.log(typeof req.body.pendingMentees);
-	console.log(typeof req.body.acceptedMentees);
+	// console.log(typeof req.body.pendingMentees);
+	// console.log(typeof req.body.acceptedMentees);
 	Mentor.find(function (err, mentors) {
 		if (err)
 			res.send(err);
