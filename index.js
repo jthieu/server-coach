@@ -37,8 +37,10 @@ var MentorSchema = new Schema({
 	education: String,
 	dream_career: String,
 	bio: String,
-	// pendingMentees: [{type: String}],
-	// acceptedMentees: [{type: String}],
+	// pendingMentees: String,
+	// acceptedMentees: String,
+	pendingMentees: [{type: String}],
+	acceptedMentees: [{type: String}],
 	age: Number
 });
 
@@ -56,6 +58,8 @@ var MenteeSchema = new Schema({
 	education: String,
 	dream_career: String,
 	bio: String,
+	pendingMentors: String,
+	acceptedMentors: String,
 	pendingMentors: [{type: String}],
 	acceptedMentors: [{type: String}],
 	hobbies: String,
@@ -93,19 +97,20 @@ app.post('/api/mentors', function (req, res) {
 		education: req.body.education,
 		dream_career: req.body.dream_career,
 		bio: req.body.bio,
-		// pendingMentees: req.body.pendingMentees,
-		// acceptedMentees: req.body.acceptedMentees,
+		pendingMentees: req.body.pendingMentees,
+		acceptedMentees: req.body.acceptedMentees,
 		age: req.body.age,
 		done: false
 
-	});
-	// console.log(typeof req.body.pendingMentees);
-	// console.log(typeof req.body.acceptedMentees);
-	Mentor.find(function (err, mentors) {
+	}), function (err, mentee) {
 		if (err)
 			res.send(err);
-		res.json(mentors);
-	});
+		Mentee.find(function (err, mentees) {
+			if (err)
+				res.send(err);
+			res.json(mentees);
+		});
+	};
 });
 
 app.post('/api/mentorsUpdate', function (req, res) {
