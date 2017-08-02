@@ -68,10 +68,13 @@ var MenteeSchema = new Schema({
 
 var Mentee = mongoose.model('Mentee', MenteeSchema);
 
+var options = {new: true};
+
 // Initialization message
 app.get('/', function (req, res) {
 	console.log("We're in.");
 });
+
 
 //HTTP Functions for Mentors
 app.get('/api/mentors', function (req, res) {
@@ -131,9 +134,9 @@ app.post('/api/mentorsUpdate', function (req, res) {
 app.post('/api/addPendingMentor', function (req, res) {
 	console.log("Updating mentee");
 	Mentee.findOneAndUpdate(
-		{ username: /*req.body.mentee_username*/"iamkostakis" },
-		{ $push: { "pendingMentors": /*req.body.mentor_username*/"flex" } },
-		{ new: true }, 
+		{ "username": req.body.mentee_username },
+		{ $push: { "pendingMentors": req.body.mentor_username } },
+		options, 
 		function (err, mentee) {
 			if (err)
 				throw err;
